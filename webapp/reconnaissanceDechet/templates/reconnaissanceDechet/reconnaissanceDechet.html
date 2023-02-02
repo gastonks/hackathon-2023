@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Reconnaissance de déchet</title>
+
+    <form method="POST" enctype="multipart/form-data" name="image">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if image %}
+    <img src="{{ image }}" alt="img">
+    {% endif %}
+</head>
+<body>
+    
+</body>
+</html>
