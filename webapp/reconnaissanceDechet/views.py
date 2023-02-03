@@ -35,33 +35,50 @@ def resultatReconnaissanceDechet(request, img):
     decodeit.write(base64.b64decode((img)))
     decodeit.close()
 
-    reconnaissance("reconnaissanceDechet/img/trans.jpeg")
+    data = reconnaissance("reconnaissanceDechet/img/trans.jpeg")
+    context["image"] = "Predict/trans.jpeg"
+    context["idMatter"] = data[0]
+
+    if(data[0] == 0):
+        context["matter"] = "Bouteille"
+    elif(data[0] == 1):
+        context["matter"] = "Plastique"
+    elif(data[0] == 2):
+        context["matter"] = "Goblet en plastique"
+    elif(data[0] == 3):
+        context["matter"] = "goblet en papier"
+    elif(data[0] == 4):
+        context["matter"] = "Metal"
+    else:
+        context["matter"] = "Carton"
+    
+    context["confiance"] = data[1]
 
     #matter = "metal"#IA 
-    list = {
-        1 : {
-            "matter": "plastic",
-            "percent": 90
-        },
-        2 : {
-            "matter": "metal",
-            "percent": 87
-        }
-    }
-    firstMatter = list[1]["matter"]
-    context["matter"] = list[1]["matter"]
+    # list = {
+    #     1 : {
+    #         "matter": "plastic",
+    #         "percent": 90
+    #     },
+    #     2 : {
+    #         "matter": "metal",
+    #         "percent": 87
+    #     }
+    # }
+    # firstMatter = list[1]["matter"]
+    # context["matter"] = list[1]["matter"]
 
-    texte = json.dumps(list)
-    context["list"] = texte
+    # texte = json.dumps(list)
+    # context["list"] = texte
   
     #JSON
     with open("reconnaissanceDechet/json/trash.json", 'r', encoding='utf-8') as f:
         dataTrash = json.load(f)
-    with open("reconnaissanceDechet/json/fact"+firstMatter+".json", 'r', encoding='utf-8') as f:
-        dataFact = json.load(f)
+    # with open("reconnaissanceDechet/json/fact"+context["matter"]+".json", 'r', encoding='utf-8') as f:
+    #     dataFact = json.load(f)
 
-    context["trash"] = dataTrash[firstMatter]
-    context["fact"] = dataFact[str(random.randint(0,4))]
+    # context["trash"] = dataTrash[firstMatter]
+    # context["fact"] = dataFact[str(random.randint(0,4))]
     
     return render(request, "resultatReconnaissanceDechet/resultatReconnaissanceDechet.html", context)
 
