@@ -9,50 +9,14 @@
 <html>
   <head>
     <title>Map des déchets</title>
-    <link rel="stylesheet" href="{% static 'ajoutPointMap/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'map/css/map.css' %}">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script>
-
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 6.8,
-                center: { lat: 47, lng: 3 },
-            });
-
-            map.addListener("click", (e) => {
-                placeMarkerAndPanTo(e.latLng, map);
-            });
-        }
-
-        function placeMarkerAndPanTo(latLng, map) {
-            new google.maps.Marker({
-                position: latLng,
-                map: map,
-                clickable: true,
-            });
-            console.log(latLng)
-            map.panTo(latLng);
-        }
-
-        var infoWindowOptions = {
-            content: '<h3>Locronan</h3>'
-                + '<a href="http://www.locronan-tourisme.com/" target="_blank">Site de l office de tourisme de la ville</a>'
-                + '<br/><img src="google-marker/image.jpg" width="200px" />'
-        };
-
-        var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-
-        google.maps.event.addListener(marker, 'click', function() {
-            infoWindow.open(map, marker);
-        });
-
-        window.initMap = initMap;
-    </script>
+    <script src="{% static 'map/js/map.js' %}"></script>
   </head>
   <body>
     <div id="map"></div>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=INSERT_KEY_HERE&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChyggeQqpr2BrsPP2LdJT1AwH0tMRPU9k&callback=initMap&v=weekly"
       defer
     ></script>
   </body>
