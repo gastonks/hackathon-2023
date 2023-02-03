@@ -1,0 +1,19 @@
+/**
+* @license
+* Copyright 2019 Google LLC. All Rights Reserved.
+* SPDX-License-Identifier: Apache-2.0
+*/
+
+#map {
+    height: 70%;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}

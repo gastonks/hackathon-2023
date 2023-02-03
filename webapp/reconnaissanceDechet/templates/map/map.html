@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Map des déchets</title>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'map/css/map.css' %}">
+    <link rel="stylesheet" href="{% static 'misterBin/css/main.css' %}">
+    <link rel="shortcut icon" href="{% static 'misterBin/img/logo.png' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="{% static 'map/js/map.js' %}"></script>
+</head>
+
+<body>
+    <header class="main-head">
+        <nav>
+            <h1 id="logo">Mister Bin</h1>
+            <ul>
+                <li><a href="{% url 'reconnaissanceDechet' %}">Traiter une image</a></li>
+                <li><a href="{% url 'map' %}">Visualiser la carte</a></li>
+                <li><a href="{% url 'ajoutPointMap' %}">Ajouter un lieu</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="map"></div>
+
+    <script class="menu"
+      src="https://maps.googleapis.com/maps/api/js?key=INSERT_KEY_HERE&callback=initMap&v=weekly"
+      defer
+    ></script>  
+
+    <footer>
+        <div class="footer-content">
+            <h3>Mister Bin</h3>
+            <h4>L'assistant au quotidien pour le tri des déchets</h4>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy; 2023 - Mister Bin. designed by Les Déchets</p>
+        </div>
+    </footer>
+</body>
+</html>
