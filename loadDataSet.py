@@ -18,8 +18,8 @@ labelsTrainDir = dataDir+"/train/labels"
 imagesValidationDir = dataDir+"/valid/images"
 labelsValidationDir = dataDir+"/valid/labels"
 
-height = 150
-width = 150
+height = 300
+width = 300
 class_names = ["Bouteille","Plastique","goblet plastique","goblet en papier","metal","carton"]
 
 nbFilesT = len(os.listdir(imagesTrainDir))
@@ -114,13 +114,14 @@ base_layers = tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu', n
 base_layers = tf.keras.layers.MaxPooling2D(name='bl_7')(base_layers)
 base_layers = tf.keras.layers.Flatten(name='bl_8')(base_layers)
 
-classifier_branch = tf.keras.layers.Dense(128, activation='relu', name='cl_1')(base_layers)
+classifier_branch = tf.keras.layers.Dense(512, activation='relu', name='cl_1')(base_layers)
 classifier_branch = tf.keras.layers.Dense(len(class_names), name='cl_head')(classifier_branch)  
 
+locator_branch = tf.keras.layers.Dense(512, activation='relu', name='bb_1')(base_layers)
 locator_branch = tf.keras.layers.Dense(128, activation='relu', name='bb_1')(base_layers)
 locator_branch = tf.keras.layers.Dense(64, activation='relu', name='bb_2')(locator_branch)
 locator_branch = tf.keras.layers.Dense(32, activation='relu', name='bb_3')(locator_branch)
-locator_branch = tf.keras.layers.Dense(4, activation='sigmoid', name='bb_head')(locator_branch)
+locator_branch = tf.keras.layers.Dense(len(class_names), activation='sigmoid', name='bb_head')(locator_branch)
 
 
 model = tf.keras.Model(input_layer, outputs=[classifier_branch,locator_branch])
@@ -133,9 +134,9 @@ model.summary()
 
 history = model.fit(imagesT, trainTargets,
              validation_data=(imagesV, validationTargets),
-             batch_size=4,
-             epochs=20,
-             steps_per_epoch=20,
+             batch_size=32,
+             epochs=50,
+             steps_per_epoch=25,
              shuffle=True,
              verbose=1)
 
