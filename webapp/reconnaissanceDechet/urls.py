@@ -3,5 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.reconnaissanceDechet, name='reconnaissanceDechet'),
-    path('', views.resultatReconnaissanceDechet, name='resultatReconnaissanceDechet'),
+    path('resultatReconnaissanceDechet/', views.resultatReconnaissanceDechet, name='resultatReconnaissanceDechet'),
+    path('ajoutPointMap/', views.ajoutPointMap, name='ajoutPointMap'),
+    path('confirmationAjoutPointMap/', views.confirmationAjoutPointMap, name='confirmationAjoutPointMap'),    
 ]

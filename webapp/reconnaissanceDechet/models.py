@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class MarkeurMap(models.Model):
+    name = models.CharField(max_length=300)
+    latitude = models.IntegerField()
+    longitude = models.IntegerField()
